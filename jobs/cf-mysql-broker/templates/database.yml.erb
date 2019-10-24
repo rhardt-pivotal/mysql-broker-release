@@ -1,0 +1,31 @@
+<%=
+  db_port = nil
+  if_link('proxy') do |proxy|
+    db_port = proxy.p('cf_mysql.proxy.port')
+  end.else do
+    db_port = p('cf_mysql.mysql.port')
+  end
+
+  db_host = nil
+  if_p('cf_mysql.host') do |host|
+    db_host = host
+  end
+
+  config = {
+    production: {
+      adapter: "mysql2",
+      encoding: "utf8",
+      database: "mysql_broker",
+      pool: 5,
+      connect_timeout: 20,
+      read_timeout: 20,
+      reconnect: true,
+      host: db_host,
+      port: db_port,
+      username: "cf-mysql-broker",
+      password: p('cf_mysql.broker.db_password')
+    }
+  }
+
+  JSON.pretty_generate(config)
+%>

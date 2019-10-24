@@ -1,0 +1,96 @@
+#!/bin/bash -e
+
+set -eo pipefail
+
+JOB_DIR=/var/vcap/jobs/cf-mysql-broker
+PACKAGE_DIR=/var/vcap/packages/cf-mysql-broker
+RUN_DIR=/var/vcap/sys/run/cf-mysql-broker
+LOG_DIR=/var/vcap/sys/log/cf-mysql-broker
+PIDFILE=$RUN_DIR/unicorn.pid
+
+export PATH=/var/vcap/packages/ruby/bin:$PATH
+export BUNDLE_GEMFILE=/var/vcap/packages/cf-mysql-broker/Gemfile
+export RAILS_ENV=production
+export SETTINGS_PATH=$JOB_DIR/config/settings.yml
+# rake needs HOME to be set to run tasks
+export HOME=/home/vcap
+export JOB_INDEX=<%= index %>
+
+source /var/vcap/packages/cf-mysql-common/pid_utils.sh
+source /var/vcap/packages/cf-mysql-common/logging.sh
+
+output_to_logfiles ${LOG_DIR}
+
+# add mysql to path
+<!-- if [ ! -f /usr/local/bin/mysql ]; then
+  echo "Adding mysql to path"
+  ln -s /var/vcap/packages/mariadb/bin/mysql /usr/local/bin
+fi -->
+
+case $1 in
+
+  start)
+    mkdir -p $RUN_DIR
+    chown -R vcap:vcap $RUN_DIR
+    mkdir -p $LOG_DIR
+    chown -R vcap:vcap $LOG_DIR
+
+    pushd $PACKAGE_DIR
+      # Run the migrations only on the first node
+      if [ $JOB_INDEX -eq 0 ]; then
+          # Needed because rake db:migrate attempts to rewrite schema.rb file
+          # which is currently owned by root
+          #
+          # Needs to live here instead of above because chown -R does not follow symlinks
+          chown -R vcap:vcap .
+
+          # Create DB and run migrations
+          set +e
+          su - vcap -p -c -o pipefail "PATH=$PATH bundle exec rake db:create \
+              >> $LOG_DIR/db_migrate.combined.log 2>&1"
+
+          su - vcap -p -c -o pipefail "PATH=$PATH bundle exec rake db:migrate \
+              >> $LOG_DIR/db_migrate.combined.log 2>&1"
+
+          EXIT_STATUS=$?
+          set -e
+
+          if [ $EXIT_STATUS != 0 ]; then
+            echo "Migrations failed at `date`" \
+                >> $LOG_DIR/db_migrate.combined.log
+            exit 1
+          fi
+
+          # Sync size of existing service instances to match plans in manifest
+          set +e
+          su - vcap -p -c -o pipefail "PATH=$PATH bundle exec rake broker:sync_plans_in_db \
+              >> $LOG_DIR/cf-mysql-broker.log 2>&1"
+
+          EXIT_STATUS=$?
+          set -e
+
+          if [ $EXIT_STATUS != 0 ]; then
+            echo "Failed to sync broker plans at `date`" \
+                >> $LOG_DIR/cf-mysql-broker.log
+            exit 1
+          fi
+      fi
+
+      su - vcap -p -c -o pipefail "PATH=$PATH bundle exec rake table_locks:update_table_lock_permissions \
+        >> $LOG_DIR/cf-mysql-broker.log 2>&1"
+
+    popd
+
+    su - vcap -p -c -o pipefail "PATH=$PATH bundle exec unicorn -c $JOB_DIR/config/unicorn.conf.rb \
+        >> $LOG_DIR/cf-mysql-broker.log 2>&1 &"
+    ;;
+
+  stop)
+    kill_and_wait "${PIDFILE}"
+    ;;
+
+  *)
+    echo "Usage: cf-mysql-broker_ctl {start|stop}"
+    ;;
+
+esac

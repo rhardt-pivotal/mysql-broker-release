@@ -1,0 +1,10 @@
+---
+name: quota-enforcer
+
+dependencies:
+
+files:
+- quota-enforcer/**/*.go
+
+excluded_files:
+  - "**/*_test.go"

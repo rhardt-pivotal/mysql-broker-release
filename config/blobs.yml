@@ -1,0 +1,21 @@
+blobstore:
+  size: 0
+  sha: ""
+cf-mysql-broker:
+  size: 732782
+  sha: sha256:b4f7fb834f75213eba6e57d9953f79c0bb62ee741b84d81fc8ec5b3a092bfc0c
+cf-mysql-common:
+  size: 1763
+  sha: sha256:387834d41928fbe0ddc46f9d3bc32b2a373f9260da627d20c2ab97faefee773a
+mysqlclient:
+  size: 745164
+  sha: sha256:4a99083fc5b1418c0dc51f211e6d12807b5b9dedf5c4dd97177f47c867a7a381
+pxc:
+  size: 247613220
+  sha: sha256:a2c61ccdd4f86d44007854617d3892c72ef2e66f2c7d80a909fccef9bd5317c4
+quota-enforcer:
+  size: 935707
+  sha: sha256:6289735e0e082e261905b2ea60eb83f853ff6b077da3c8888e587b87d384dd8d
+ruby:
+  size: 17158481
+  sha: sha256:2671d8c915a6a0d16d290e94904a0f64f3dea07aa6f6268376833169bc4f0799
