@@ -1,4 +1,11 @@
 blobs
-.dev_builds
-*.tgz
+.dev_builds/
+.final_builds/
 dev_releases/
+releases/
+*.tgz
+src/cf-mysql-broker/
+src/golang-1.13-linux/
+src/mysqlclient/
+src/pxc/
+src/ruby/

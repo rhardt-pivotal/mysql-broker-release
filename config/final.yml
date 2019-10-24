@@ -1,6 +1,1 @@
-# blobstore:
-#   provider: local
-#   options:
-#     blobstore_path: /Users/rjain/blobs
-
 name: mysql-broker-release
