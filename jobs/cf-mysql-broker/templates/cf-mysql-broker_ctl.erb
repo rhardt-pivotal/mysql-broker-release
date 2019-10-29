@@ -14,7 +14,7 @@ export RAILS_ENV=production
 export SETTINGS_PATH=$JOB_DIR/config/settings.yml
 # rake needs HOME to be set to run tasks
 export HOME=/home/vcap
-export JOB_INDEX= <%= index %>
+export JOB_INDEX=<%= index %>
 
 source /var/vcap/packages/cf-mysql-common/pid_utils.sh
 source /var/vcap/packages/cf-mysql-common/logging.sh

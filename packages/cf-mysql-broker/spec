@@ -5,5 +5,5 @@ dependencies:
 - ruby-2.6.5-r0.26.0
 - mysqlclient
 
-files:
+files: 
 - cf-mysql-broker/**/*

@@ -16,7 +16,7 @@
   
 
   db_host = nil
-  if_p('cf_mysql.host') do |host|
+  if_p('cf_mysql.external_host') do |host|
     db_host = host
   end
 

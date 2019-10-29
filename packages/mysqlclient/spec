@@ -1,5 +1,5 @@
 ---
 name: mysqlclient
 
-files:
-- mysqlclient/**/*
+files: 
+- mysqlclient.tgz

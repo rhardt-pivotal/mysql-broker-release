@@ -7,9 +7,14 @@ NPROC="$(nproc)"
 
 VERSION=3.1.4
 
+tar xvfz mysqlclient.tgz
+
+echo "1\n"
+ls -al
+echo "2\n"
 ls -al mysqlclient
 
-tar xzf mysqlclient/mariadb-connector-c-${VERSION}.tar.gz
+tar xvfz mysqlclient/mariadb-connector-c-${VERSION}.tar.gz
 (
   set -e
   cd mariadb-connector-c-${VERSION}

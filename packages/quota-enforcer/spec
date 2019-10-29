@@ -8,4 +8,4 @@ files:
 
 
 excluded_files:
-  - "**/*_test.go"
+- "**/*_test.go"
