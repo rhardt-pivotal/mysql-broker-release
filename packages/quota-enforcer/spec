@@ -2,10 +2,10 @@
 name: quota-enforcer
 
 dependencies:
-
+- golang-1.13-linux
 files:
 - quota-enforcer/**/*.go
-- golang-1.13-linux/**/*
+
 
 excluded_files:
   - "**/*_test.go"

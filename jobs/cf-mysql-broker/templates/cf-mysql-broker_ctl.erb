@@ -8,13 +8,13 @@ RUN_DIR=/var/vcap/sys/run/cf-mysql-broker
 LOG_DIR=/var/vcap/sys/log/cf-mysql-broker
 PIDFILE=$RUN_DIR/unicorn.pid
 
-export PATH=/var/vcap/packages/ruby/bin:$PATH
+export PATH=/var/vcap/packages/ruby-2.6.5-r0.26.0/bin:$PATH
 export BUNDLE_GEMFILE=/var/vcap/packages/cf-mysql-broker/Gemfile
 export RAILS_ENV=production
 export SETTINGS_PATH=$JOB_DIR/config/settings.yml
 # rake needs HOME to be set to run tasks
 export HOME=/home/vcap
-export JOB_INDEX=<%= index %>
+export JOB_INDEX= <%= index %>
 
 source /var/vcap/packages/cf-mysql-common/pid_utils.sh
 source /var/vcap/packages/cf-mysql-common/logging.sh
@@ -22,10 +22,10 @@ source /var/vcap/packages/cf-mysql-common/logging.sh
 output_to_logfiles ${LOG_DIR}
 
 # add mysql to path
-<!-- if [ ! -f /usr/local/bin/mysql ]; then
-  echo "Adding mysql to path"
-  ln -s /var/vcap/packages/mariadb/bin/mysql /usr/local/bin
-fi -->
+# if [ ! -f /usr/local/bin/mysql ]; then
+#   echo "Adding mysql to path"
+#   ln -s /var/vcap/packages/mariadb/bin/mysql /usr/local/bin
+# fi 
 
 case $1 in
 

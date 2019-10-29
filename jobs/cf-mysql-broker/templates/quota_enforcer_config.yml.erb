@@ -11,12 +11,9 @@
   ignored_users = p('cf_mysql.broker.quota_enforcer.ignored_users')
   ignored_users << 'roadmin'
 
-  db_port = nil
-  if_link('proxy') do |proxy|
-    db_port = proxy.p('cf_mysql.proxy.port')
-  end.else do
-    db_port = p('cf_mysql.mysql.port')
-  end
+  
+  db_port = p('cf_mysql.mysql.port')
+  
 
   db_host = nil
   if_p('cf_mysql.host') do |host|

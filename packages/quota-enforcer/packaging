@@ -2,14 +2,21 @@
 
 set -eux
 
+
 mkdir -p ${BOSH_INSTALL_TARGET}/src
 cp -a . ${BOSH_INSTALL_TARGET}/src
 
-export GOROOT=$(readlink -nf /var/vcap/packages/golang-1.13-linux)
+ls -al  ${BOSH_INSTALL_TARGET}/src
+
+source /var/vcap/packages/golang-1.13-linux/bosh/compile.env
+
+# export GOROOT=$(readlink -nf /var/vcap/packages/golang-1.13-linux)
+# export GOPATH=${BOSH_INSTALL_TARGET}
+# export PATH=${GOROOT}/bin:${GOPATH}/bin:${PATH}
 export GOPATH=${BOSH_INSTALL_TARGET}
-export PATH=${GOROOT}/bin:${GOPATH}/bin:${PATH}
 
 go install quota-enforcer
+
 
 # clean up source artifacts
 rm -rf ${BOSH_INSTALL_TARGET}/src ${BOSH_INSTALL_TARGET}/pkg

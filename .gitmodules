@@ -1,0 +1,3 @@
+[submodule "src/cf-mysql-broker"]
+	path = src/cf-mysql-broker
+	url = https://github.com/rhardt-pivotal/cf-mysql-broker

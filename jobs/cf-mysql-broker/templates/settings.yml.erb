@@ -11,16 +11,13 @@ production:
 
   cc_api_uri: <%= p('cf.api_url') %>
 
-  persistent_disk: <%= p('cf_mysql.mysql.persistent_disk') %>
-  ib_log_file_size: <%= p('cf_mysql.mysql.ib_log_file_size')%>
-  gcache_size: <%= p('cf_mysql.mysql.gcache_size')%>
+  # persistent_disk: <%= p('cf_mysql.mysql.persistent_disk') %>
+  # ib_log_file_size: <%= p('cf_mysql.mysql.ib_log_file_size')%>
+  # gcache_size: <%= p('cf_mysql.mysql.gcache_size')%>
 
   allow_table_locks: <%= p('cf_mysql.broker.allow_table_locks') %>
 
-  <% link('mysql').if_p('cf_mysql.mysql.tls.ca_certificate') do |cert| %>
-  tls_ca_certificate: "<%= cert.gsub("\n", "\\n") %>"
-  <% end %>
-
+  
   services:
   <% p('cf_mysql.broker.services').each do |service| %>
   - id: <%= service['id'] %>

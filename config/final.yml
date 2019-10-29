@@ -1,1 +1,13 @@
 name: mysql-broker-release
+blobstore:
+  provider: local
+  options:
+    blobstore_path: /Users/roberthardt/work2/client/tmobile/mysql/mysql-broker-release/blobs
+blobstore:
+  provider: local
+  options:
+    blobstore_path: /Users/roberthardt/work2/client/tmobile/mysql/mysql-broker-release/blobs
+blobstore:
+  provider: local
+  options:
+    blobstore_path: /Users/roberthardt/work2/client/tmobile/mysql/mysql-broker-release/blobs
