@@ -1,0 +1,5 @@
+DELETE FROM MYSQL.USER WHERE NAME='';
+FLUSH PRIVILEGES;
+SET GLOBAL innodb_stats_on_metadata=ON;
+SET GLOBAL innodb_stats_persistent=OFF;
+SET GLOBAL pxc_strict_mode=PERMISSIVE;
