@@ -10,5 +10,5 @@ set -eux
   < "/var/vcap/jobs/cf-mysql-broker-prep/config/quota_enforcer_user_setup.sql"
 
 /var/vcap/packages/pxc/bin/mysql \
-  --defaults-file="/var/vcap/jobs/pxc-mysql/config/mylogin.cnf" \
-  < "/var/vcap/jobs/cf-mysql-broker-prep/config/db_prep.sql"
+   --defaults-file="/var/vcap/jobs/pxc-mysql/config/mylogin.cnf" \
+   < "/var/vcap/jobs/cf-mysql-broker-prep/config/db_prep.sql"

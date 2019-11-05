@@ -75,6 +75,8 @@ properties:
   cf_mysql.broker.max_user_connections_default:
     description: 'number of user connections to allow in a plan if not specified'
     default: 40
+  cf_mysql.broker.host:
+    description: 'Optional, The ip to be registered with the cf router for the broker. Defaults to the ip of the vm'
   cf_mysql.broker.services:
     description: 'Array of services, each service contains the list of plans the broker of that service provides'
     example: |
@@ -93,8 +95,6 @@ properties:
   cf_mysql.broker.ssl_enabled:
     description: 'Determines use of https in dashboard url and in callback uri for calls to UAA'
     default: true
-  cf_mysql.broker.host:
-    description: 'Optional, The ip to be registered with the cf router for the broker. Defaults to the ip of the vm'
   cf_mysql.broker.port:
     default: 8081
     description: "Port for broker"
