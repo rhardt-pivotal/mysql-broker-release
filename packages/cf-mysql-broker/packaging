@@ -25,8 +25,8 @@ rsync -a cf-mysql-broker/ ${BOSH_INSTALL_TARGET}
 
   # /var/vcap/packages/ruby/bin/bundle install --local --deployment --without development test
 
-  apt update
-  apt install -y git
+  # apt update
+  # apt install -y git
 
   bosh_bundle
   bosh_generate_runtime_env

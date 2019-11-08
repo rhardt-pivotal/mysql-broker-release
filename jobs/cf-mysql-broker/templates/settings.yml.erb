@@ -7,9 +7,6 @@ production:
   external_host: <%= p('cf_mysql.external_host') %>
 
   ssl_enabled: <%= p('cf_mysql.broker.ssl_enabled') %>
-  skip_ssl_validation: <%= p('cf.skip_ssl_validation') %>
-
-  cc_api_uri: <%= p('cf.api_url') %>
 
   persistent_disk: <%= p('cf_mysql.mysql.persistent_disk') %>
   ib_log_file_size: <%= p('cf_mysql.mysql.ib_log_file_size')%>
@@ -97,8 +94,8 @@ production:
 
           displayName: <%= display_name %>
     <% end %>
-    dashboard_client:
-      id: <%= service['dashboard_client']['id'] %>
-      secret: <%= service['dashboard_client']['secret'] %>
-      redirect_uri: <%= "#{p('cf_mysql.broker.ssl_enabled') ? 'https' : 'http'}://#{p('cf_mysql.external_host')}/" %>
+    # dashboard_client:
+    #   id: <%= service['dashboard_client']['id'] %>
+    #   secret: <%= service['dashboard_client']['secret'] %>
+    #   redirect_uri: <%= "#{p('cf_mysql.broker.ssl_enabled') ? 'https' : 'http'}://#{p('cf_mysql.external_host')}/" %>
   <% end %>
